@@ -25,7 +25,19 @@ const getWalletBalance = async() => {
     }
 }
 
+const airDropSol = async() => {
+    try{
+        const connection = new Connection(clusterApiUrl('devnet'), 'confrimed');
+        const fromAirDropSignature = await connection.requestAirdrop(publickey, 2 * LAMPORTS_PER_SOL);
+        await connection.confirmTransaction(fromAirDropSignature);
+    } catch(err) {
+        console.log(err)
+    }
+}
+
 const main = async() => {
+    await getWalletBalance()
+    await airDropSol()
     await getWalletBalance()
 }
 
